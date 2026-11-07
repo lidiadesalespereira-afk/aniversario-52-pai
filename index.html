@@ -1,0 +1,213 @@
+html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>52 anos — Missão aniversário</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: #f4f7ff;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at 50% 35%, #173b70 0, transparent 38%),
+        #08111f;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    main {
+      width: min(92%, 700px);
+      padding: 48px 20px;
+    }
+
+    .etiqueta {
+      color: #71d4ff;
+      letter-spacing: 3px;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 14px 0 8px;
+      font-size: clamp(38px, 8vw, 72px);
+    }
+
+    h1 span { color: #59b9ff; }
+
+    .subtitulo {
+      color: #bdc9dc;
+      font-size: 18px;
+    }
+
+    /* Bolo azul */
+    .bolo {
+      position: relative;
+      width: 230px;
+      height: 190px;
+      margin: 72px auto 30px;
+    }
+
+    .base {
+      position: absolute;
+      bottom: 0;
+      width: 230px;
+      height: 105px;
+      background: linear-gradient(135deg, #1475c9, #07509c);
+      border-radius: 16px 16px 24px 24px;
+      box-shadow: 0 12px 35px #007bff55;
+    }
+
+    .cobertura {
+      position: absolute;
+      bottom: 82px;
+      left: 10px;
+      width: 210px;
+      height: 45px;
+      background: #65c5ff;
+      border-radius: 50% 50% 12px 12px;
+    }
+
+    .cobertura::after {
+      content: "";
+      position: absolute;
+      left: 25px;
+      top: 20px;
+      width: 20px;
+      height: 35px;
+      border-radius: 0 0 12px 12px;
+      background: #65c5ff;
+      box-shadow: 55px 5px #65c5ff, 110px -2px #65c5ff;
+    }
+
+    .vela {
+      position: absolute;
+      z-index: 2;
+      bottom: 125px;
+      left: 50%;
+      width: 10px;
+      height: 48px;
+      transform: translateX(-50%);
+      border-radius: 5px;
+      background: repeating-linear-gradient(
+        45deg, #fff 0 7px, #ffb547 7px 13px
+      );
+    }
+
+    .chama {
+      position: absolute;
+      width: 16px;
+      height: 22px;
+      left: -3px;
+      top: -23px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      background: #ffcf57;
+      box-shadow: 0 0 20px #ff9d2e;
+      animation: pisca .7s infinite alternate;
+    }
+
+    @keyframes pisca {
+      to { transform: rotate(-45deg) scale(.82); }
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 15px 23px;
+      color: #071322;
+      background: #65c5ff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      background: #a4e0ff;
+    }
+
+    #mensagem {
+      min-height: 30px;
+      margin-top: 22px;
+      color: #dbeaff;
+      font-size: 18px;
+    }
+
+    .rodape {
+      margin-top: 42px;
+      color: #8495ad;
+      font-size: 13px;
+    }
+
+    .confete {
+      position: fixed;
+      top: -20px;
+      width: 9px;
+      height: 14px;
+      animation: cair 2.5s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes cair {
+      to { transform: translateY(110vh) rotate(700deg); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="etiqueta">Missão especial • edição 52</div>
+    <h1>Feliz aniversário, <span>Pai!</span></h1>
+    <p class="subtitulo">52 anos de histórias. E ainda carregando no modo turbo.</p>
+
+    <div class="bolo" aria-label="Bolo azul com uma vela">
+      <div class="vela"><div class="chama" id="chama"></div></div>
+      <div class="cobertura"></div>
+      <div class="base"></div>
+    </div>
+
+    <button onclick="comemorar()">Ativar modo festa</button>
+    <p id="mensagem">Tem uma surpresa esperando. 👀</p>
+
+    <div class="rodape">Nível 52 desbloqueado — experiência +1, juízo em análise.</div>
+  </main>
+
+  <script>
+    const mensagens = [
+      "Parabéns, pai! Que seu novo nível venha cheio de coisa boa.",
+      "52 anos e ainda sendo o chefe da equipe. Feliz aniversário!",
+      "Missão do dia: se divertir. As outras podem esperar.",
+      "Você merece um ano excelente — sem atualização obrigatória."
+    ];
+
+    function comemorar() {
+      document.getElementById("mensagem").textContent =
+        mensagens[Math.floor(Math.random() * mensagens.length)];
+
+      const chama = document.getElementById("chama");
+      chama.style.display = chama.style.display === "none" ? "block" : "none";
+
+      for (let i = 0; i < 45; i++) {
+        const pedaco = document.createElement("i");
+        pedaco.className = "confete";
+        pedaco.style.left = Math.random() * 100 + "vw";
+        pedaco.style.background = ["#65c5ff", "#ffcf57", "#ff6b6b", "#ffffff"][
+          Math.floor(Math.random() * 4)
+        ];
+        pedaco.style.animationDelay = Math.random() * 0.8 + "s";
+        document.body.appendChild(pedaco);
+        setTimeout(() => pedaco.remove(), 3500);
+      }
+    }
+  </script>
+</body>
+</html>
